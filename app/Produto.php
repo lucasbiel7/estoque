@@ -6,4 +6,5 @@ class Produto extends Model {
 	//
 	protected $table="produto";
 	public $timestamps=false;
+	protected $fillable = array('descricao','quantidade','valor');
 }

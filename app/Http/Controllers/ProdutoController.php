@@ -1,6 +1,5 @@
 <?php 
 namespace estoque\Http\Controllers;
-use Illuminate\Support\Facades\DB;
 use estoque\Produto;
 use Request;
 class ProdutoController extends Controller{
@@ -10,8 +9,7 @@ class ProdutoController extends Controller{
 		return view("produto.listagem")->with("produtos",$produtos);
 	}
 
-	public function mostra(){
-		$id=Request::route("id");
+	public function mostra($id){
 		$produto=Produto::find($id);
 		if(empty($produto)){
 			return "Esse produto não existe";
@@ -24,16 +22,28 @@ class ProdutoController extends Controller{
 	}
 
 	public function cadastrar(){
-		$produto=new Produto();
-		$produto->descricao=Request::input("txDescricao");
-		$produto->valor=Request::input("txValor");
-		$produto->quantidade=Request::input("txQuantidade");
+		$produto=new Produto(Request::all());
 		$produto->save();
-		return redirect()->action("ProdutoController@lista")->withInput(Request::only('txDescricao'));
+		return redirect()->action("ProdutoController@lista")->withInput(Request::only('descricao'));
 	}
 
 	public function listaJson(){
 		$produtos=Produto::all();
 		return response()->json($produtos);
+	}
+
+	public function excluir($id){
+		$produto=Produto::find($id);
+		$produto->delete();
+		return redirect()->action("ProdutoController@lista");
+	}
+
+	public function editar($id){
+		$produto=Produto::find($id);
+		return view("produto.editar-produto")->with("produto",$produto);
+	}
+
+	public function editando(){
+					
 	}
 }
