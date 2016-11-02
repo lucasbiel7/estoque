@@ -1,10 +1,18 @@
 <?php 
 namespace estoque\Http\Controllers;
 use estoque\Produto;
+use estoque\Categoria;
 use Request;
+use Validator;
+use estoque\Http\Requests\ProdutoRequest;
+use Auth;
 class ProdutoController extends Controller{
 	
+	public function __construct(){
+		$this->middleware("autorizador",["only"=>"novo"]);
+	}
 	public function lista(){
+		
 		$produtos=Produto::all();
 		return view("produto.listagem")->with("produtos",$produtos);
 	}
@@ -18,11 +26,11 @@ class ProdutoController extends Controller{
 	}
 
 	public function novo(){
-		return view("produto.novo");
+		return view("produto.novo")->with("categorias",Categoria::all());
 	}
 
-	public function cadastrar(){
-		Produto::create(Request::all());
+	public function cadastrar(ProdutoRequest $request){
+		Produto::create($request->all());
 		return redirect()->action("ProdutoController@lista")->withInput(Request::only('descricao'));
 	}
 
@@ -38,6 +46,7 @@ class ProdutoController extends Controller{
 	}
 
 	public function editar($id){
+
 		$produto=Produto::find($id);
 		return view("produto.editar-produto")->with("produto",$produto);
 	}
@@ -47,6 +56,7 @@ class ProdutoController extends Controller{
 		$produto->descricao=Request::input("descricao");
 		$produto->quantidade=Request::input("quantidade");
 		$produto->valor=Request::input("valor");
+		$produto->tamanho=Request::input("tamanho");
 		$produto->save();
 		return redirect()->action("ProdutoController@lista");
 	}

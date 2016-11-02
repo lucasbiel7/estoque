@@ -10,8 +10,10 @@
 	<div class="container">
 		<nav class="navbar navbar-default">
 			@yield("titulo")
+			@if(!Auth::guest())
 			<li><a href="/produtos">Listar de produtos</a></li>
 			<li><a href="/produtos/novo">Novo</a></li>
+			@endif
 		</nav>
 		@yield('conteudo')
 		<footer class="footer">

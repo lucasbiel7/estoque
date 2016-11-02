@@ -9,14 +9,21 @@
 	Produto {{old('descricao')}} foi cadastrado com sucesso!	
 </div>
 @endif
+@if(count($produtos)<=0)
+<h4>
+	<span class="label label-danger center-block">
+		Você não tem produtos cadastrados
+	</span>
+</h4>
+
+@else
 <table class="table table-striped table-bordered table-hover">
-	@if(empty($produtos))
-	Você não tem produtos cadastrados
-	@else
 	<tr>
 		<th>Descrição</th>
 		<th>Quantidade</th>
 		<th>Valor</th>
+		<th>Tamanho</th>
+		<th>Categoria</th>
 		<th>Detalhes</th>
 		<th>Editar</th>
 		<th>Excluir</th>
@@ -26,6 +33,8 @@
 		<td> {{$produto->descricao}}</td>
 		<td>{{$produto->quantidade}}</td>
 		<td>R$ {{$produto->valor}}</td>
+		<td>{{$produto->tamanho}}</td>
+		<td>{{$produto->categoria->nome}}</td>
 		<td><a href="{{action('ProdutoController@mostra',$produto->id)}}"><i class="glyphicon glyphicon-tag" aria-hidden="true"></i></a></td>
 		<td><a href="{{action('ProdutoController@editar',$produto->id)}}"><i class="glyphicon glyphicon-edit" aria-hidden="true"></i></a></td>
 		<td><a href="{{action('ProdutoController@excluir',$produto->id)}}"><i class="glyphicon glyphicon-trash" aria-hidden="true"></i></a></td>

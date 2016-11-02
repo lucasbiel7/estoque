@@ -15,6 +15,9 @@
 	<div class="form-group">
 		<label>Quantidade</label><input type="number" class="form-control" name="quantidade" value="{{$produto->quantidade}}">
 	</div>
+	<div class="form-group">
+		<label>Tamanho</label><input type="text" class="form-control" name="tamanho" value="{{$produto->tamanho}}">
+	</div>
 	<button class="btn btn-primary" type="submit">Editar</button>
 </form>
 @stop
