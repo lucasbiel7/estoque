@@ -8,7 +8,7 @@
 	<strong>Sucesso!</strong><br/>
 	Produto {{old('descricao')}} foi cadastrado com sucesso!	
 </div>
-	@endif
+@endif
 <table class="table table-striped table-bordered table-hover">
 	@if(empty($produtos))
 	Você não tem produtos cadastrados
@@ -18,7 +18,7 @@
 		<th>Quantidade</th>
 		<th>Valor</th>
 		<th>Detalhes</th>
-		<th>Editar<th>
+		<th>Editar</th>
 		<th>Excluir</th>
 	</tr>
 	@foreach ($produtos as $produto)
@@ -26,9 +26,9 @@
 		<td> {{$produto->descricao}}</td>
 		<td>{{$produto->quantidade}}</td>
 		<td>R$ {{$produto->valor}}</td>
-		<td><a href="/produtos/mostrar/{{$produto->id}}"><i class="glyphicon glyphicon-tag" aria-hidden="true"></i></a></td>
-		<td><a href="/produtos/editar/{{$produto->id}}"><i class="glyphicon glyphicon-edit" aria-hidden="true"></i></a></td>
-		<td><a href="/produtos/remove/{{$produto->id}}"><i class="glyphicon glyphicon-trash" aria-hidden="true"></i></a></td>
+		<td><a href="{{action('ProdutoController@mostra',$produto->id)}}"><i class="glyphicon glyphicon-tag" aria-hidden="true"></i></a></td>
+		<td><a href="{{action('ProdutoController@editar',$produto->id)}}"><i class="glyphicon glyphicon-edit" aria-hidden="true"></i></a></td>
+		<td><a href="{{action('ProdutoController@excluir',$produto->id)}}"><i class="glyphicon glyphicon-trash" aria-hidden="true"></i></a></td>
 	</tr>
 	@endforeach
 </table>

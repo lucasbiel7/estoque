@@ -22,8 +22,7 @@ class ProdutoController extends Controller{
 	}
 
 	public function cadastrar(){
-		$produto=new Produto(Request::all());
-		$produto->save();
+		Produto::create(Request::all());
 		return redirect()->action("ProdutoController@lista")->withInput(Request::only('descricao'));
 	}
 
@@ -44,6 +43,11 @@ class ProdutoController extends Controller{
 	}
 
 	public function editando(){
-					
+		$produto=Produto::find(Request::input("id"));
+		$produto->descricao=Request::input("descricao");
+		$produto->quantidade=Request::input("quantidade");
+		$produto->valor=Request::input("valor");
+		$produto->save();
+		return redirect()->action("ProdutoController@lista");
 	}
 }

@@ -14,4 +14,4 @@ Route::post("/produtos/cadastrar","ProdutoController@cadastrar");
 Route::get("/produtos/remove/{id}","ProdutoController@excluir");
 
 Route::get("/produtos/editar/{id}","ProdutoController@editar");
-Route::get("/produtos/editar/{id}","ProdutoController@editando");
+Route::post("/produtos/editando","ProdutoController@editando");

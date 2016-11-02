@@ -2,10 +2,10 @@
 @section("titulo")
 <h1>Editar produto</h1>
 @stop
-@stop
 @section("conteudo")
 <form action="/produtos/editando" method="post">
 	<input value="{{csrf_token()}}" type="hidden" name="_token"/>
+	<input value="{{$produto->id}}" type="hidden" name="id"/>
 	<div class="form-group">
 		<label>Descrição</label><input type="text" class="form-control" name="descricao" value="{{$produto->descricao}}">
 	</div>
